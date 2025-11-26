@@ -16,7 +16,6 @@ const checkAuth = (req, res, next) => {
       : authHeader;
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('decodedToken:', decodedToken);
 
     req.userData = decodedToken;
     next();

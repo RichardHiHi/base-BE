@@ -1,8 +1,6 @@
 const userService = require('../services/user.service');
-const {
-  validateUserWithoutRate,
-  validateEmployee,
-} = require('../validations/user.validation');
+const settingService = require('../services/setting.service');
+const { validateEmployee } = require('../validations/user.validation');
 const jwt = require('jsonwebtoken');
 const STATUS = require('../utils/statusCode');
 const { validateSignIn } = require('../validations/auth.validation');
@@ -282,10 +280,10 @@ const resetPassword = async (req, res) => {
         .json({ error: 'người dùng không tồn tại.' });
     }
 
-    const password = await genPassword('123456');
+    const defaultPassword = await settingService.getDefaultPassword();
 
     await userService.updateUser(id, {
-      password: password,
+      password: defaultPassword,
       isFirstLogin: true,
     });
 

@@ -25,4 +25,11 @@ router.get(
   controller.resetPassword
 );
 
+router.post(
+  '/change-default-password',
+  middleware.checkAuth,
+  roleMiddleware.checkRole(ROLE.ADMIN),
+  controller.changePassword
+);
+
 module.exports = router;

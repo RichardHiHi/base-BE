@@ -29,7 +29,6 @@ const save = async (req, res) => {
       .status(STATUS.CREATED)
       .json({ message: 'đã tạo thành công', user: result });
   } catch (err) {
-    console.log('err:', err);
     res.status(STATUS.INTERNAL_SERVER_ERROR).json({ error: err.message });
   }
 };

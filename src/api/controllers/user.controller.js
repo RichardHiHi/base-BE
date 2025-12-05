@@ -36,6 +36,7 @@ const save = async (req, res) => {
 const show = async (req, res) => {
   try {
     const result = await userService.getList();
+    console.log(result);
     res.status(STATUS.OK).json({ data: result });
   } catch (err) {
     res.status(STATUS.INTERNAL_SERVER_ERROR).json({ error: err.message });

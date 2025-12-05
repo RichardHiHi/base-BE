@@ -11,7 +11,7 @@ const checkRole = (...roles) => {
     if (!roles.includes(user.role)) {
       return res
         .status(STATUS.FORBIDDEN)
-        .json({ error: 'Forbidden: insufficient role' });
+        .json({ error: 'Forbidden: role không hợp lệ' });
     }
 
     next();

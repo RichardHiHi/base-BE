@@ -12,4 +12,18 @@ router.post(
   controller.changeDefaultPassword
 );
 
+router.post(
+  '/working-time',
+  middleware.checkAuth,
+  roleMiddleware.checkRole(ROLE.ADMIN),
+  controller.changeWorkingTime
+);
+
+router.get(
+  '/working-time',
+  middleware.checkAuth,
+  roleMiddleware.checkRole(ROLE.ADMIN),
+  controller.showWorkingTime
+);
+
 module.exports = router;

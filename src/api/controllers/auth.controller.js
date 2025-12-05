@@ -84,6 +84,7 @@ const login = async (req, res) => {
         .json({ error: 'tài khoản không tồn tại hoặc mật khẩu không đúng.' });
     }
   } catch (error) {
+    console.log(error);
     return res
       .status(STATUS.INTERNAL_SERVER_ERROR)
       .json({ error: error.message });

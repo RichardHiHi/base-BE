@@ -4,7 +4,7 @@ const getDefaultPassword = async () => {
   const defaultPassword = await models.Setting.findOne({
     where: { key: 'defaultPassword' },
   });
-  return defaultPassword.value;
+  return defaultPassword?.value;
 };
 
 const changeDefaultPassword = async (password) => {
@@ -14,6 +14,37 @@ const changeDefaultPassword = async (password) => {
   );
 };
 
-module.exports = { getDefaultPassword, changeDefaultPassword };
+const changeWorkingTime = async (startTime, workingTime) => {
+  await models.Setting.update(
+    { value: startTime },
+    { where: { key: 'startTime' } }
+  );
+  await models.Setting.update(
+    { value: workingTime },
+    { where: { key: 'workingTime' } }
+  );
+};
+
+const getWorkingTime = async () => {
+  const startTime = await models.Setting.findOne({
+    where: { key: 'startTime' },
+  });
+  const workingTime = await models.Setting.findOne({
+    where: { key: 'workingTime' },
+  });
+
+  const result = {
+    startTime: startTime?.value,
+    workingTime: workingTime?.value,
+  };
+  return result;
+};
+
+module.exports = {
+  getDefaultPassword,
+  changeDefaultPassword,
+  changeWorkingTime,
+  getWorkingTime,
+};
 
 //

@@ -20,6 +20,7 @@ const checkAuth = (req, res, next) => {
     req.userData = decodedToken;
     next();
   } catch (error) {
+    console.log(error);
     if (error.name === 'TokenExpiredError') {
       return res
         .status(STATUS.UNAUTHORIZED)

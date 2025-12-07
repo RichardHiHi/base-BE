@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const { WORKING_STATUS } = require('../utils/common');
 
 module.exports = (sequelize, DataTypes) => {
   class Timesheet extends Model {
@@ -72,7 +73,11 @@ module.exports = (sequelize, DataTypes) => {
 
       // --- TRẠNG THÁI ---
       status: {
-        type: DataTypes.ENUM('WORKING', 'COMPLETED', 'MISSING_CHECKOUT'),
+        type: DataTypes.ENUM(
+          WORKING_STATUS.WORKING,
+          WORKING_STATUS.COMPLETED,
+          WORKING_STATUS.MISSING_CHECKOUT
+        ),
         defaultValue: 'WORKING',
         allowNull: false,
       },

@@ -5,30 +5,30 @@ module.exports = (sequelize, DataTypes) => {
   class Payroll extends Model {
     static associate(models) {
       // 1 Payroll thuộc về 1 User
-      Payroll.belongsTo(models.User, { foreignKey: 'user_id' });
+      Payroll.belongsTo(models.User, { foreignKey: 'userId' });
 
       // 1 Payroll sẽ "khóa" nhiều dòng Timesheet và Leave
       // (Quan hệ 1-Nhiều)
-      Payroll.hasMany(models.Timesheet, { foreignKey: 'payroll_id' });
-      Payroll.hasMany(models.Leave, { foreignKey: 'payroll_id' });
+      Payroll.hasMany(models.Timesheet, { foreignKey: 'payrollId' });
+      Payroll.hasMany(models.Leave, { foreignKey: 'payrollId' });
     }
   }
 
   Payroll.init(
     {
-      user_id: DataTypes.INTEGER,
-      period_start: DataTypes.DATEONLY,
-      period_end: DataTypes.DATEONLY,
+      userId: DataTypes.INTEGER,
+      periodStart: DataTypes.DATEONLY,
+      periodEnd: DataTypes.DATEONLY,
 
       // Snapshot metrics
-      total_work_hours: DataTypes.FLOAT,
-      total_unpaid_leave_days: DataTypes.FLOAT,
-      applied_rate: DataTypes.FLOAT,
+      totalWorkHours: DataTypes.FLOAT,
+      totalUnpaidLeaveDays: DataTypes.FLOAT,
+      appliedRate: DataTypes.FLOAT,
 
       // Money
       bonus: DataTypes.FLOAT,
       deduction: DataTypes.FLOAT,
-      final_salary: DataTypes.FLOAT,
+      finalSalary: DataTypes.FLOAT,
 
       status: DataTypes.ENUM('DRAFT', 'APPROVED', 'PAID'),
       deletedAt: DataTypes.DATE,

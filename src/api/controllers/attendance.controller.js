@@ -12,9 +12,8 @@ const checkIn = async (req, res) => {
       .json({ error: 'người dùng không tồn tại.' });
   }
 
-  const user = attendanceService.checkIn(isExistUser);
-
   try {
+    const user = await attendanceService.checkIn(isExistUser);
     return res.status(STATUS.OK).json({ error: user });
   } catch (error) {
     return res.status(STATUS.INTERNAL_SERVER_ERROR).json({ error: error });

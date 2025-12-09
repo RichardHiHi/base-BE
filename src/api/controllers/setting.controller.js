@@ -41,7 +41,6 @@ const changeWorkingTime = async (req, res) => {
 const showWorkingTime = async (req, res) => {
   try {
     const workingTime = await settingService.getWorkingTime();
-    console.log(workingTime);
     res.status(STATUS.OK).json(workingTime);
   } catch {
     res.status(STATUS.INTERNAL_SERVER_ERROR).json({ error: err.message });

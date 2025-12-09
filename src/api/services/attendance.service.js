@@ -1,12 +1,15 @@
 const models = require('../models');
-const { WORKING_STATUS } = require('../utils/common');
+const { WORKING_STATUS, isTimeInRange } = require('../utils/common');
 const dayjs = require('../utils/dayjs');
+const { getWorkingTime } = require('./setting.service');
+
+const CHECK_LIMIT = 4;
 
 const checkIn = async (user) => {
   const date = dayjs();
   const workingDate = date.format('YYYY-MM-DD');
-  const now = date.format('YYYY-MM-DD HH:mm:ss');
-  console.log(now);
+  const now = date;
+  const formatNow = date.format('YYYY-MM-DD HH:mm:ss');
   // const timesheet = {
   //   user_id: user.id,
   //   working_date: day,
@@ -16,27 +19,46 @@ const checkIn = async (user) => {
   //   status: WORKING_STATUS.WORKING,
   // };
 
-  const [ts, created] = await models.Timesheet.findOrCreate({
+  const { endTime, startTime } = await getWorkingTime();
+
+  const isTimeInRange = isTimeInRange(startTime, endTime, now);
+
+  if (!isTimeInRange) {
+    throw new Error(`bạn không thế scan ngoài giờ làm`);
+  }
+
+  const [timeSheet, created] = await models.Timesheet.findOrCreate({
     where: {
-      user_id: user.id,
-      working_date: workingDate,
+      userId: user.id,
+      workingDate: workingDate,
     },
     defaults: {
-      user_id: user.id,
-      working_date: workingDate,
-      check_in_at: now,
+      userId: user.id,
+      workingDate: workingDate,
+      checkInAt: formatNow,
       status: WORKING_STATUS.WORKING,
     },
   });
 
   if (!created) {
-    await ts.update({
-      check_out_at: now,
-      status: WORKING_STATUS.COMPLETED,
-    });
+    const checkOut = dayjs(timeSheet.check_out_at);
+    const diffMinutes = checkOut.diff(now, 'minute');
+
+    if (diffMinutes > CHECK_LIMIT) {
+      const totalHours = checkOut.diff(now, 'hour');
+      await timeSheet.update({
+        checkOutAt: formatNow,
+        status: WORKING_STATUS.COMPLETED,
+        totalHours,
+      });
+    } else {
+      throw new Error(
+        `bạn vừa scan rồi ,vui lòng quay lại sau ${CHECK_LIMIT} phút`
+      );
+    }
   }
 
-  return ts;
+  return timeSheet;
 };
 
 module.exports = { checkIn };

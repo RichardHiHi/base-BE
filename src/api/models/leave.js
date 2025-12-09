@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) => {
 
   Leave.init(
     {
-      user_id: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       date: DataTypes.DATEONLY,
       reason: DataTypes.STRING,
-      is_paid: {
+      isPaid: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      payroll_id: DataTypes.INTEGER,
+      payrollId: DataTypes.INTEGER,
       deletedAt: DataTypes.DATE,
     },
     {

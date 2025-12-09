@@ -12,13 +12,13 @@ module.exports = {
       },
       {
         key: 'startTime',
-        value: '08:00',
+        value: '18:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        key: 'workingTime',
-        value: '8',
+        key: 'endTime',
+        value: '02:00',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -27,7 +27,7 @@ module.exports = {
 
   async down(queryInterface) {
     await queryInterface.bulkDelete('Settings', {
-      key: ['defaultPassword', 'startTime', 'workingTime'],
+      key: ['defaultPassword', 'startTime', 'endTime'],
     });
   },
 };

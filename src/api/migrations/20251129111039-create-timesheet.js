@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       // 1. Liên kết với User
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -20,22 +20,22 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       // 2. Ngày công logic (Chỉ lưu ngày, không giờ)
-      working_date: {
+      workingDate: {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
       // 3. Giờ vào
-      check_in_at: {
+      checkInAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
       // 4. Giờ ra (Cho phép NULL vì lúc mới Check-in chưa có giờ ra)
-      check_out_at: {
+      checkOutAt: {
         type: Sequelize.DATE,
         allowNull: true,
       },
       // 5. Tổng giờ (Mặc định là 0)
-      total_hours: {
+      totalHours: {
         type: Sequelize.FLOAT,
         defaultValue: 0,
       },
@@ -45,7 +45,7 @@ module.exports = {
         defaultValue: 'WORKING',
       },
       // 7. Khóa ngoại liên kết bảng Lương (Cho phép Null khi chưa chốt lương)
-      payroll_id: {
+      payrollId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {

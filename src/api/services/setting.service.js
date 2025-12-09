@@ -29,13 +29,13 @@ const getWorkingTime = async () => {
   const startTime = await models.Setting.findOne({
     where: { key: 'startTime' },
   });
-  const workingTime = await models.Setting.findOne({
-    where: { key: 'workingTime' },
+  const endTime = await models.Setting.findOne({
+    where: { key: 'endTime' },
   });
 
   const result = {
     startTime: startTime?.value,
-    workingTime: workingTime?.value,
+    endTime: endTime?.value,
   };
   return result;
 };

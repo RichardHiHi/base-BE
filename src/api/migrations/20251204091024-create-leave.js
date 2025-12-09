@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       // 1. Liên kết với User
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -31,13 +31,13 @@ module.exports = {
       },
       // 4. Có được trả lương không?
       // Quan trọng: Mặc định là FALSE (Nghỉ là trừ lương)
-      is_paid: {
+      isPaid: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false,
       },
       // 5. Liên kết bảng Lương (Để khóa dữ liệu sau khi chốt)
-      payroll_id: {
+      payrollId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {

@@ -13,21 +13,21 @@ module.exports = (sequelize, DataTypes) => {
       // 1. Liên kết với User (Nhân viên)
       // Mối quan hệ: Một Timesheet thuộc về một User
       Timesheet.belongsTo(models.User, {
-        foreignKey: 'user_id',
+        foreignKey: 'userId',
         as: 'user', // Alias để khi query dùng include: ['user']
       });
 
       // 2. Liên kết với Payroll (Bảng lương)
       // Mối quan hệ: Một Timesheet thuộc về một kỳ lương cụ thể (sau khi chốt)
       Timesheet.belongsTo(models.Payroll, {
-        foreignKey: 'payroll_id',
+        foreignKey: 'payrollId',
         as: 'payroll',
       });
 
       // 3. Liên kết với SwipeLogs (Lịch sử quẹt thẻ)
       // Mối quan hệ: Một Timesheet có nhiều lần quẹt thẻ chi tiết
       Timesheet.hasMany(models.SwipeLog, {
-        foreignKey: 'timesheet_id',
+        foreignKey: 'timesheetId',
         as: 'logs',
       });
     }
@@ -36,11 +36,11 @@ module.exports = (sequelize, DataTypes) => {
   Timesheet.init(
     {
       // --- KHÓA NGOẠI ---
-      user_id: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      payroll_id: {
+      payrollId: {
         type: DataTypes.INTEGER,
         allowNull: true, // Cho phép NULL vì mới tạo chưa có lương
         comment:
@@ -48,24 +48,24 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       // --- THỜI GIAN ---
-      working_date: {
+      workingDate: {
         type: DataTypes.DATEONLY, // Chỉ lưu YYYY-MM-DD
         allowNull: false,
         comment: 'Ngày công logic (tính theo quy tắc 4h sáng)',
       },
-      check_in_at: {
+      checkInAt: {
         type: DataTypes.DATE, // Lưu YYYY-MM-DD HH:mm:ss
         allowNull: false,
         comment: 'Giờ vào thực tế (Lần quẹt đầu tiên)',
       },
-      check_out_at: {
+      checkOutAt: {
         type: DataTypes.DATE, // Lưu YYYY-MM-DD HH:mm:ss
         allowNull: true, // Mới vào chưa có giờ ra -> Null
         comment: 'Giờ ra thực tế (Lần quẹt cuối cùng)',
       },
 
       // --- TÍNH TOÁN ---
-      total_hours: {
+      totalHours: {
         type: DataTypes.FLOAT,
         defaultValue: 0,
         comment: 'Tổng giờ làm đã làm tròn (Block 0.5)',
@@ -98,11 +98,11 @@ module.exports = (sequelize, DataTypes) => {
         // Đánh index để query báo cáo cho nhanh
         {
           unique: false,
-          fields: ['user_id', 'working_date'],
+          fields: ['userId', 'workingDate'],
         },
         {
           unique: false,
-          fields: ['payroll_id'], // Để tìm các dòng thuộc bảng lương nào nhanh hơn
+          fields: ['payrollId'], // Để tìm các dòng thuộc bảng lương nào nhanh hơn
         },
       ],
     }

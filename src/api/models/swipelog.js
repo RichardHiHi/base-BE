@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   SwipeLog.init(
     {
-      user_id: DataTypes.INTEGER,
-      timesheet_id: DataTypes.INTEGER,
-      swiped_at: DataTypes.DATE,
+      userId: DataTypes.INTEGER,
+      timesheetId: DataTypes.INTEGER,
+      swipedAt: DataTypes.DATE,
     },
     {
       sequelize,

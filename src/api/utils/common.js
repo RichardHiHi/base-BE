@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const dayjs = require('dayjs');
 
 const ROLE = {
   ADMIN: '0',
@@ -17,4 +18,29 @@ const genPassword = async (password) => {
   return hash;
 };
 
-module.exports = { ROLE, genPassword, WORKING_STATUS };
+const isTimeInRange = (startTime, endTime, checkTime = dayjs()) => {
+  let start = dayjs()
+    .hour(startTime.split(':')[0])
+    .minute(startTime.split(':')[1])
+    .second(0);
+
+  let end = dayjs()
+    .hour(endTime.split(':')[0])
+    .minute(endTime.split(':')[1])
+    .second(0);
+
+  // Nếu qua ngày (end < start) → cộng 1 ngày cho end
+  if (end.isBefore(start)) {
+    end = end.add(1, 'day');
+  }
+
+  // Nếu checkTime < start → cộng 1 ngày (ca đêm)
+
+  if (end.isBefore(start)) {
+    time = time.add(1, 'day');
+  }
+
+  return checkTime.isAfter(start) && checkTime.isBefore(end);
+};
+
+module.exports = { ROLE, genPassword, WORKING_STATUS, isTimeInRange };

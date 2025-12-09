@@ -9,13 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
       },
-      timesheet_id: {
+      timesheetId: {
         type: Sequelize.INTEGER,
       },
-      swiped_at: {
+      swipedAt: {
         type: Sequelize.DATE,
       },
       createdAt: {

@@ -4,7 +4,6 @@ const middleware = require('../middleware/check-auth');
 const roleMiddleware = require('../middleware/check-role');
 const { ROLE } = require('../utils/common');
 const router = express.Router();
-console.log(router);
 
 router.post(
   '/change-default-password',

@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       // 1. Liên kết với nhân viên
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -20,26 +20,26 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       // 2. Kỳ lương (Từ ngày - Đến ngày)
-      period_start: {
+      periodStart: {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
-      period_end: {
+      periodEnd: {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
       // 3. Các cột SNAPSHOT (Lưu cứng dữ liệu lúc tính)
-      total_work_hours: {
+      totalWorkHours: {
         type: Sequelize.FLOAT,
         defaultValue: 0,
         comment: 'Tổng giờ làm (cho Part-time)',
       },
-      total_unpaid_leave_days: {
+      totalUnpaidLeaveDays: {
         type: Sequelize.FLOAT,
         defaultValue: 0,
         comment: 'Số ngày nghỉ trừ lương (cho Full-time)',
       },
-      applied_rate: {
+      appliedRate: {
         type: Sequelize.FLOAT,
         allowNull: false,
         comment: 'Mức lương áp dụng tại thời điểm tính',
@@ -54,7 +54,7 @@ module.exports = {
         defaultValue: 0,
       },
       // 5. Con số cuối cùng (Thực lĩnh)
-      final_salary: {
+      finalSalary: {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
